@@ -1,5 +1,8 @@
 package com.rios.tacocloud;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -7,7 +10,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 
-public class Order {
+public class TacoOrder {
 	@NotNull
 	private Long id;
 	@Override
@@ -35,7 +38,7 @@ public class Order {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Order other = (Order) obj;
+		TacoOrder other = (TacoOrder) obj;
 		if (address == null) {
 			if (other.address != null)
 				return false;
@@ -103,6 +106,28 @@ public class Order {
 	private String ccExpiration;
 	@Digits(integer=3, fraction=0, message="Invalid CVV")
 	private String ccCVV;
+	private Date placedAt;
+	public List<Taco> getTacos() {
+		return tacos;
+	}
+
+	public void setTacos(List<Taco> tacos) {
+		this.tacos = tacos;
+	}
+
+	private List<Taco> tacos;
+	
+	
+	
+	public Date getPlacedAt() {
+		return placedAt;
+	}
+
+	public void setPlacedAt(Date placedAt) {
+		this.placedAt = placedAt;
+	}
+
+	
 	
 	public Long getId() {
 		return id;
@@ -112,7 +137,6 @@ public class Order {
 		this.id = id;
 	}
 
-	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -210,7 +234,7 @@ public class Order {
 	}
 
 
-	public Order(Long id, String firstName, String lastName, String address, String city, State state, String zip,
+	public TacoOrder(Long id, String firstName, String lastName, String address, String city, State state, String zip,
 			String ccNumber, String ccExpiration, String ccCVV) {
 		super();
 		this.id = id;
@@ -224,9 +248,13 @@ public class Order {
 		this.ccExpiration = ccExpiration;
 		this.ccCVV = ccCVV;
 	}
+	
+	public void addDesign(Taco design) {
+		this.tacos.add(design);
+	}
 
 
-	public Order() {
+	public TacoOrder() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

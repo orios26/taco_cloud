@@ -18,12 +18,12 @@ public class OrderController {
 	
 	@GetMapping("/current")
 	public String orderForm(Model model) {
-		model.addAttribute("order", new Order());
+		model.addAttribute("order", new TacoOrder());
 		return "orderForm";
 	}
 	
 	@PostMapping
-	public String processOrder(@Valid Order order, Errors errors) {
+	public String processOrder(@Valid TacoOrder order, Errors errors) {
 		if(errors.hasErrors()) {
 			return "orderForm";
 		}
